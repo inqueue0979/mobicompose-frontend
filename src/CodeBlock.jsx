@@ -2,9 +2,25 @@ import React from "react";
 
 function CodeBlock({ label, code }) {
   // 복사 버튼 클릭 시, code 문자열을 클립보드에 복사
+  // 복사한 후 버튼 위에 "복사 완료!" 메시지 표시
+  // 복사 실패 시, alert로 "복사에 실패했습니다." 메시지 표시
+  // querySelector에서 CodeBlock에 있는 button을 선택하기 위해 id을 사용
+  // 각 button에 다른 id을 부여해야 함, 방법은 2가지
+  // 1. id을 props로 받아서 사용
+  // 2. button을 클릭한 후, event.target.id로 선택
+  // 1번 방법을 사용
+  // const button = document.querySelector(`#${id}`);
+  // const button = document.querySelector("#copy-button");
   const handleCopy = () => {
     navigator.clipboard.writeText(code)
-      .then(() => alert(`${label} 복사 완료!`))
+        .then(() => {
+            const button = document.querySelector(`#copy-button-${label}`); // 각 버튼에 고유한 id 부여
+            button.innerText = "복사 완료!";
+            setTimeout(() => {
+            button.innerText = "Copy";
+            }, 2000);
+        }
+    )
       .catch(() => alert('복사에 실패했습니다.'));
   };
 
@@ -26,6 +42,7 @@ function CodeBlock({ label, code }) {
       >
         {/* 복사 버튼 */}
       <button
+            id={`copy-button-${label}`} // 각 버튼에 고유한 id 부여
           onClick={handleCopy}
           style={{
             position: "absolute",
