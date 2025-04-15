@@ -1,10 +1,12 @@
+"use client";
 import React, { useState } from "react";
 import CodeBlock from "./CodeBlock";
 
-function App() {
+function UploadForm() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [result, setResult] = useState(null);
 
+  // Railway에 배포된 FastAPI URL
   const API_URL = "https://mobicompose-production.up.railway.app/convert";
 
   const handleFileChange = (e) => {
@@ -39,7 +41,7 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "2rem", color: "#fff", backgroundColor: "#1e1e1e" }}>
+    <div style={{ padding: "1rem", color: "#fff", backgroundColor: "#1e1e1e" }}>
       <h1>MobiCompose (MS2MML to MML) 변환기</h1>
       <p>
         ms2mml 파일을 선택한 뒤, <strong>업로드</strong> 버튼을 누르면 변환된
@@ -59,8 +61,6 @@ function App() {
       {result && (
         <div>
           <h2>변환 결과(JSON):</h2>
-
-          {/* result 객체의 키-값을 돌면서 각각 CodeBlock으로 */}
           {Object.entries(result).map(([key, code]) => (
             <CodeBlock key={key} label={key} code={code} />
           ))}
@@ -70,4 +70,4 @@ function App() {
   );
 }
 
-export default App;
+export default UploadForm;
