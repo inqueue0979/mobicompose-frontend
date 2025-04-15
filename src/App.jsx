@@ -5,7 +5,7 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [result, setResult] = useState(null);
 
-  const API_URL = "http://localhost:8000/convert";
+  const API_URL = "https://mobicompose-production.up.railway.app/convert";
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0] || null);
